@@ -13,7 +13,7 @@ export class OverpassService {
     const radiusInMeters = radius * 1000;
     
     let query = `
-      [out:json][timeout:25];
+      [out:json][timeout:90];
       (
         node["amenity"="pharmacy"](around:${radiusInMeters},${lat},${lon});
         way["amenity"="pharmacy"](around:${radiusInMeters},${lat},${lon});
@@ -23,7 +23,7 @@ export class OverpassService {
 
     if (showOnlyGuard) {
       query = `
-        [out:json][timeout:25];
+        [out:json][timeout:90];
         (
           node["amenity"="pharmacy"]["note"~"garde"](around:${radiusInMeters},${lat},${lon});
           node["amenity"="pharmacy"]["opening_hours"~"24/7"](around:${radiusInMeters},${lat},${lon});
