@@ -26,12 +26,17 @@ const config: CapacitorConfig = {
   ios: {
     contentInset: 'automatic',
     scrollEnabled: true,
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
+    allowsLinkPreview: false,
+    preferredContentMode: 'mobile'
   },
   android: {
     backgroundColor: '#ffffff',
     allowMixedContent: true,
-    captureInput: true
+    captureInput: true,
+    webContentsDebuggingEnabled: false,
+    appendUserAgent: 'FrancePharmacies/1.0',
+    overrideUserAgent: 'FrancePharmacies/1.0 Mobile'
   }
 };
 

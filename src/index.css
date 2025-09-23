@@ -44,6 +44,21 @@
     }
   }
   
+  /* Support pour les grandes tablettes (iPad Pro) */
+  @media (min-width: 1024px) and (max-width: 1366px) {
+    .large-tablet-optimized {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  }
+  
+  /* Support pour les écrans pliables */
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .foldable-portrait {
+      padding: 2rem 1rem;
+    }
+  }
+  
   /* Amélioration des performances de scroll */
   * {
     -webkit-overflow-scrolling: touch;
@@ -83,6 +98,20 @@
   @media (spanning: single-fold-vertical) {
     .fold-aware {
       flex-direction: column;
+    }
+  }
+  
+  /* Support pour les tablettes Android */
+  @media (min-width: 600dp) {
+    .android-tablet {
+      padding: 24dp;
+    }
+  }
+  
+  /* Support pour les iPad en mode Split View */
+  @media (min-width: 320px) and (max-width: 768px) {
+    .ipad-split-view {
+      font-size: 14px;
     }
   }
 }

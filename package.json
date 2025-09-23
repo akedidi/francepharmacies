@@ -15,7 +15,9 @@
     "cap:open:ios": "npx cap open ios",
     "cap:open:android": "npx cap open android",
     "cap:run:ios": "npx cap run ios",
-    "cap:run:android": "npx cap run android"
+    "cap:run:android": "npx cap run android",
+    "cap:run:ios:device": "npx cap run ios --target device",
+    "cap:run:android:device": "npx cap run android --target device"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",

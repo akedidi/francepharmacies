@@ -172,10 +172,13 @@ PORT=8080
 ## 📱 Fonctionnalités détaillées
 
 ### Applications natives
-- **iOS** : App Store ready avec géolocalisation native
-- **Android** : Google Play ready avec permissions natives
+- **iOS Universal** : iPhone + iPad, App Store ready avec géolocalisation native
+- **Android Universal** : Smartphones + Tablettes, Google Play ready avec permissions natives
 - **Géolocalisation** : API native haute précision
 - **Performance** : Optimisée pour mobile et tablette
+- **Orientations** : Portrait et paysage supportés
+- **Écrans pliables** : Support des nouveaux formats d'écran
+- **Multitâche** : Compatible iPad Split View et Android Multi-Window
 
 ### Recherche de pharmacies
 - Géolocalisation automatique
