@@ -1,216 +1,144 @@
-# France Pharmacies 🏥
+# France Pharmacies
 
-Une application web moderne pour trouver rapidement des pharmacies près de chez vous en France.
+Application universelle de recherche de pharmacies en France avec géolocalisation, compatible web, mobile et tablettes natives.
 
-## 🌟 Fonctionnalités
+## 🚀 Fonctionnalités
 
-- **Recherche géolocalisée** : Trouvez automatiquement les pharmacies autour de votre position
-- **Recherche par adresse** : Saisissez n'importe quelle adresse française
-- **Filtres avancés** : Rayon de recherche, pharmacies de garde, horaires d'ouverture
-- **Vue carte interactive** : Visualisez les pharmacies sur une carte Leaflet
-- **Vue liste détaillée** : Informations complètes avec contact et itinéraires
-- **Tendances médicaments** : Analyse des ventes de médicaments remboursés
-- **Actualités pharmaceutiques** : Dernières nouvelles du secteur
-- **Design responsive** : Interface optimisée mobile et desktop
-- **Gestion des cookies RGPD** : Respect de la vie privée
+- **Recherche de pharmacies** par géolocalisation ou adresse
+- **Filtres avancés** : rayon, horaires, pharmacies de garde
+- **Carte interactive** avec marqueurs personnalisés
+- **Tendances médicaments** basées sur les données CNAM
+- **Actualités pharmaceutiques** en temps réel
+- **Application universelle** : iPhone, iPad, Android phones et tablettes
+- **Interface adaptative** : Optimisée pour chaque taille d'écran
 
-## 🚀 Technologies utilisées
+## 📱 Déploiement Multi-Plateforme
 
-### Frontend
-- **React 18** avec TypeScript
-- **Tailwind CSS** pour le design
-- **Leaflet** pour les cartes interactives
-- **Lucide React** pour les icônes
-- **Vite** comme bundler
+### Web (Bolt.new)
+```bash
+npm run dev    # Développement
+npm run build  # Production
+```
 
-### APIs et données
-- **Overpass API** : Données OpenStreetMap des pharmacies
+### Applications Natives (Capacitor)
+```bash
+# Installation des dépendances Capacitor
+npm install @capacitor/core @capacitor/cli @capacitor/ios @capacitor/android @capacitor/device @capacitor/network @capacitor/keyboard @capacitor/toast @capacitor/haptics
+
+# Build web
+npm run build
+
+# Initialisation Capacitor
+npx cap init
+
+# Ajout des plateformes (support universel automatique)
+npx cap add ios
+npx cap add android
+
+# Synchronisation
+npx cap sync
+
+# Ouverture dans les IDEs natifs
+npx cap open ios     # Xcode (iPhone + iPad)
+npx cap open android # Android Studio (Phone + Tablet)
+```
+
+## 📱 Support Universel
+
+### iOS (iPhone + iPad)
+- **iPhone** : Interface compacte avec navigation bottom
+- **iPad** : Interface desktop avec sidebar et contrôles agrandis
+- **Détection automatique** : Adaptation selon la taille d'écran
+- **Orientation** : Portrait et paysage supportés
+
+### Android (Phone + Tablet)
+- **Téléphones** : Interface mobile optimisée
+- **Tablettes** : Interface étendue avec plus d'espace
+- **Responsive** : Adaptation fluide selon la résolution
+- **Material Design** : Respect des guidelines Android
+
+## 🔧 Configuration Native
+
+### iOS (Info.plist)
+```xml
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Cette app utilise votre localisation pour trouver les pharmacies près de chez vous.</string>
+<key>UISupportedInterfaceOrientations</key>
+<array>
+  <string>UIInterfaceOrientationPortrait</string>
+  <string>UIInterfaceOrientationLandscapeLeft</string>
+  <string>UIInterfaceOrientationLandscapeRight</string>
+</array>
+<key>UISupportedInterfaceOrientations~ipad</key>
+<array>
+  <string>UIInterfaceOrientationPortrait</string>
+  <string>UIInterfaceOrientationPortraitUpsideDown</string>
+  <string>UIInterfaceOrientationLandscapeLeft</string>
+  <string>UIInterfaceOrientationLandscapeRight</string>
+</array>
+```
+
+### Android (AndroidManifest.xml)
+```xml
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.VIBRATE" />
+
+<!-- Support tablettes et téléphones -->
+<supports-screens 
+    android:smallScreens="true"
+    android:normalScreens="true" 
+    android:largeScreens="true"
+    android:xlargeScreens="true"
+    android:anyDensity="true" />
+```
+
+## 🌐 Compatibilité
+
+- **Web** : Tous navigateurs modernes
+- **iOS** : iOS 13+ (iPhone 6s+, iPad Air 2+, iPad mini 4+)
+- **Android** : Android 7+ (API 24+, toutes tailles d'écran)
+- **Tablettes** : iPad (toutes tailles), Android tablets 7"+
+- **Géolocalisation** : GPS natif haute précision sur mobile/tablette
+
+## 🎨 Interface Adaptative
+
+### Détection Automatique
+- **Taille d'écran** : Small, Medium, Large, XLarge
+- **Type d'appareil** : Phone, Tablet, Desktop
+- **Orientation** : Portrait/Paysage avec adaptation
+- **Densité** : Support haute résolution (Retina, etc.)
+
+### Optimisations par Appareil
+- **Téléphones** : Navigation bottom, interface compacte
+- **Tablettes** : Sidebar, contrôles agrandis, plus d'informations
+- **Desktop** : Interface complète avec tous les panneaux
+
+## 📊 APIs Utilisées
+
+- **Overpass API** : Données pharmacies OpenStreetMap
 - **Nominatim** : Géocodage et recherche d'adresses
-- **Geopf** : Service de géocodage français
+- **Medic'AM (CNAM)** : Tendances médicaments
 - **NewsAPI** : Actualités pharmaceutiques
-- **Medic'AM (CNAM)** : Données de remboursement des médicaments
-
-### Backend (optionnel)
-- **Node.js** avec Express
-- **TypeScript**
-- Cache fichier pour optimiser les performances
-
-## 📦 Installation
-
-### Prérequis
-- Node.js 18+ 
-- npm ou yarn
-
-### Installation locale
-
-1. **Cloner le repository**
-```bash
-git clone https://github.com/votre-username/france-pharmacies.git
-cd france-pharmacies
-```
-
-2. **Installer les dépendances**
-```bash
-npm install
-```
-
-3. **Lancer le serveur de développement**
-```bash
-npm run dev
-```
-
-4. **Ouvrir dans le navigateur**
-```
-http://localhost:5173
-```
-
-### Serveur backend (optionnel)
-
-Pour les fonctionnalités avancées (tendances, actualités) :
-
-```bash
-cd server
-npm install
-npm run dev
-```
-
-Le serveur backend sera disponible sur `http://localhost:8080`
-
-## 🏗️ Structure du projet
-
-```
-france-pharmacies/
-├── src/
-│   ├── components/          # Composants React
-│   │   ├── SearchBar.tsx
-│   │   ├── MapView.tsx
-│   │   ├── PharmacyList.tsx
-│   │   ├── FilterPanel.tsx
-│   │   ├── TrendsTab.tsx
-│   │   ├── NewsTab.tsx
-│   │   └── ...
-│   ├── services/           # Services API
-│   │   ├── overpassApi.ts
-│   │   ├── nominatimApi.ts
-│   │   ├── trendsApi.ts
-│   │   └── newsApi.ts
-│   ├── hooks/              # Hooks personnalisés
-│   │   ├── useGeolocation.ts
-│   │   └── useCookieConsent.ts
-│   ├── types/              # Types TypeScript
-│   │   ├── pharmacy.ts
-│   │   └── trends.ts
-│   └── ...
-├── server/                 # Backend Node.js (optionnel)
-│   ├── src/
-│   │   └── index.ts
-│   └── package.json
-└── ...
-```
-
-## 🌐 APIs utilisées
-
-### Données des pharmacies
-- **Overpass API** : Extraction des pharmacies depuis OpenStreetMap
-- **Nominatim** : Géocodage et recherche d'adresses
-- **Geopf** : Service officiel français de géocodage
-
-### Données médicaments et actualités
-- **Base Medic'AM** : Données officielles CNAM des médicaments remboursés
-- **NewsAPI** : Actualités du secteur pharmaceutique français
-
-## 🔧 Configuration
-
-### Variables d'environnement (optionnel)
-
-Créer un fichier `.env` pour le serveur backend :
-
-```env
-NEWSAPI_KEY=votre_cle_newsapi
-PORT=8080
-```
-
-## 📱 Fonctionnalités détaillées
-
-### Recherche de pharmacies
-- Géolocalisation automatique
-- Recherche par adresse avec autocomplétion
-- Filtrage par rayon (1-20 km)
-- Pharmacies de garde et 24h/24
-- Informations complètes : adresse, téléphone, horaires
-
-### Carte interactive
-- Marqueurs différenciés (normale/garde)
-- Popups détaillées
-- Centrage automatique
-- Recherche dans la zone visible
-
-### Tendances médicaments
-- Analyse comparative mensuelle
-- Top des médicaments en croissance
-- Données officielles CNAM
-- Bonus "buzz actualité"
-
-### Actualités pharmaceutiques
-- News secteur pharmacie/santé
-- Sources fiables françaises
-- Mise à jour quotidienne
-
-## 🎨 Design
-
-- **Design moderne** avec gradients et animations
-- **Interface intuitive** avec navigation par onglets
-- **Responsive design** mobile-first
-- **Accessibilité** respectée
-- **Performance optimisée**
+- **Capacitor APIs** : Géolocalisation, Device, Network, Haptics
 
 ## 🔒 Confidentialité
 
-- **Conformité RGPD**
-- **Gestion des cookies** granulaire
-- **Géolocalisation optionnelle**
-- **Pas de tracking** sans consentement
+- **RGPD compliant** avec gestion des cookies (web uniquement)
+- **Géolocalisation** : Demande d'autorisation explicite
+- **Données** : Aucune donnée personnelle stockée
+- **Permissions minimales** : Seulement ce qui est nécessaire
 
-## 🚀 Déploiement
+## 🏪 Distribution
 
-### Build de production
-```bash
-npm run build
-```
+### App Store (iOS)
+- **iPhone** : Catégorie Santé & Forme
+- **iPad** : Support natif avec interface optimisée
+- **Universal Binary** : Une seule app pour tous les appareils iOS
 
-### Déploiement sur Netlify/Vercel
-Le projet est prêt pour un déploiement sur les plateformes modernes :
-- Build automatique avec `npm run build`
-- Fichiers statiques dans `/dist`
-- Configuration SPA incluse
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues ! 
-
-1. Fork le projet
-2. Créer une branche feature (`git checkout -b feature/AmazingFeature`)
-3. Commit les changements (`git commit -m 'Add AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrir une Pull Request
-
-## 📄 Licence
-
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
-
-## 🙏 Remerciements
-
-- **OpenStreetMap** pour les données géographiques
-- **CNAM** pour les données Medic'AM
-- **IGN** pour les services Geopf
-- **NewsAPI** pour les actualités
-- La communauté open source
-
-## 📞 Contact
-
-- **Email** : contact@francepharmacies.fr
-- **GitHub** : [france-pharmacies](https://github.com/votre-username/france-pharmacies)
-
----
-
-Fait avec ❤️ pour faciliter l'accès aux soins en France
+### Google Play Store (Android)
+- **Téléphones** : Toutes tailles d'écran supportées
+- **Tablettes** : Interface adaptée aux grandes écrans
+- **APK universel** : Compatible avec tous les appareils Android
