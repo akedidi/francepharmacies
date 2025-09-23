@@ -451,6 +451,7 @@ function App() {
           </div>
         </div>
       </div>
+      </main>
 
       {/* Footer */}
       <Footer onCookieSettings={() => setShowCookieSettings(true)} />
