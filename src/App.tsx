@@ -183,8 +183,12 @@ function App() {
           <div>
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center">
-                <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 p-3 rounded-2xl mr-4 shadow-lg">
-                  <MapPin className="w-8 h-8 text-white" />
+                <div className="mr-4">
+                  <img 
+                    src="/pharmacy-icon.png" 
+                    alt="France Pharmacies" 
+                    className="w-14 h-14 rounded-2xl shadow-lg"
+                  />
                 </div>
                 <div>
                   <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
