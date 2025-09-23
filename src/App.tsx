@@ -185,7 +185,7 @@ function App() {
               <div className="flex items-center">
                 <div className="mr-4">
                   <img 
-                    src="/new-pharmacy-icon.png" 
+                    src="/pharma-icon.png" 
                     alt="France Pharmacies" 
                     className="w-14 h-14 rounded-2xl shadow-lg"
                   />
