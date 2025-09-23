@@ -3,7 +3,7 @@ import { MapPin, List, Loader2, AlertCircle, Filter, X, TrendingUp, Newspaper } 
 import { Pharmacy, SearchParams } from './types/pharmacy';
 import { OverpassService } from './services/overpassApi';
 import { NominatimService } from './services/nominatimApi';
-import { useGeolocation } from './hooks/useGeolocation';
+import { useNativeGeolocation } from './hooks/useNativeGeolocation';
 import SearchBar from './components/SearchBar';
 import FilterPanel from './components/FilterPanel';
 import PharmacyList from './components/PharmacyList';
@@ -17,7 +17,7 @@ import { useCookieConsent } from './hooks/useCookieConsent';
 import SEOContent from './components/SEOContent';
 
 function App() {
-  const { location, loading: geoLoading, error: geoError } = useGeolocation();
+  const { location, loading: geoLoading, error: geoError, refreshLocation } = useNativeGeolocation();
   const {
     showBanner,
     preferences,
@@ -123,6 +123,9 @@ function App() {
   const handleCurrentLocation = () => {
     if (location) {
       handleLocationSelect(location.lat, location.lon, 'Position actuelle');
+    } else {
+      // Réessayer d'obtenir la position
+      refreshLocation();
     }
   };
 

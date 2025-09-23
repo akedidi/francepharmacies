@@ -22,6 +22,7 @@ Une application web moderne pour trouver rapidement des pharmacies près de chez
 - **Leaflet** pour les cartes interactives
 - **Lucide React** pour les icônes
 - **Vite** comme bundler
+- **Capacitor** pour les apps natives iOS/Android
 
 ### APIs et données
 - **Overpass API** : Données OpenStreetMap des pharmacies
@@ -38,8 +39,9 @@ Une application web moderne pour trouver rapidement des pharmacies près de chez
 ## 📦 Installation
 
 ### Prérequis
-- Node.js 18+ 
+- Node.js 18+
 - npm ou yarn
+- Pour les apps natives : Xcode (iOS) et Android Studio (Android)
 
 ### Installation locale
 
@@ -62,6 +64,43 @@ npm run dev
 4. **Ouvrir dans le navigateur**
 ```
 http://localhost:5173
+```
+
+### Développement natif iOS/Android
+
+1. **Préparer l'environnement**
+```bash
+# iOS (macOS uniquement)
+sudo gem install cocoapods
+
+# Android
+# Installer Android Studio et configurer les SDK
+```
+
+2. **Ajouter les plateformes natives**
+```bash
+npm run cap:add:ios
+npm run cap:add:android
+```
+
+3. **Build et synchronisation**
+```bash
+npm run build:native
+```
+
+4. **Ouvrir dans les IDE natifs**
+```bash
+# iOS (Xcode)
+npm run cap:open:ios
+
+# Android (Android Studio)
+npm run cap:open:android
+```
+
+5. **Lancer sur simulateur/émulateur**
+```bash
+npm run cap:run:ios
+npm run cap:run:android
 ```
 
 ### Serveur backend (optionnel)
@@ -132,6 +171,12 @@ PORT=8080
 
 ## 📱 Fonctionnalités détaillées
 
+### Applications natives
+- **iOS** : App Store ready avec géolocalisation native
+- **Android** : Google Play ready avec permissions natives
+- **Géolocalisation** : API native haute précision
+- **Performance** : Optimisée pour mobile et tablette
+
 ### Recherche de pharmacies
 - Géolocalisation automatique
 - Recherche par adresse avec autocomplétion
@@ -172,6 +217,20 @@ PORT=8080
 - **Pas de tracking** sans consentement
 
 ## 🚀 Déploiement
+
+### Apps natives (iOS/Android)
+```bash
+# Build pour les stores
+npm run build:native
+
+# iOS - Archive pour App Store
+npm run cap:open:ios
+# Puis dans Xcode : Product > Archive
+
+# Android - Build APK/AAB
+npm run cap:open:android
+# Puis dans Android Studio : Build > Generate Signed Bundle/APK
+```
 
 ### Build de production
 ```bash

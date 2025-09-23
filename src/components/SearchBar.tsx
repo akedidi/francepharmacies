@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, MapPin, Loader2, X } from 'lucide-react';
+import { Search, MapPin, Loader2, X, RefreshCw } from 'lucide-react';
 import { NominatimService } from '../services/nominatimApi';
+import { Capacitor } from '@capacitor/core';
 import { AddressSuggestion } from '../types/pharmacy';
 
 interface SearchBarProps {
@@ -106,10 +107,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
           )}
           <button
             onClick={onCurrentLocation}
-            className="p-2 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-xl transition-colors"
-            title="Ma position actuelle"
+            className={`p-2 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-xl transition-colors ${
+              Capacitor.isNativePlatform() ? 'animate-pulse' : ''
+            }`}
+            title={Capacitor.isNativePlatform() ? "Géolocalisation native" : "Ma position actuelle"}
           >
-            <MapPin className="w-5 h-5" />
+            {Capacitor.isNativePlatform() ? (
+              <RefreshCw className="w-5 h-5" />
+            ) : (
+              <MapPin className="w-5 h-5" />
+            )}
           </button>
         </div>
       </div>
