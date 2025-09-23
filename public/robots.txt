@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://francepharmacies.fr/sitemap.xml
+
+# Optimisation pour les moteurs de recherche
+Crawl-delay: 1
+
+# Pages importantes
+Allow: /pharmacies
+Allow: /tendances
+Allow: /actualites
+
+# Fichiers statiques
+Allow: /assets/
+Allow: /icons/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.svg
+Allow: /*.webp

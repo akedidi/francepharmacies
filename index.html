@@ -2,12 +2,90 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/pharmacy-icon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#10b981" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="France Pharmacies" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Trouvez rapidement une pharmacie près de chez vous en France. Recherche par géolocalisation, filtres avancés, pharmacies de garde." />
-    <title>France Pharmacies - Trouvez une pharmacie près de chez vous</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Trouvez rapidement une pharmacie près de chez vous en France : Paris, Lyon, Marseille, Bordeaux, Nice. Pharmacies de garde 24h/24, géolocalisation, tendances médicaments et actualités pharmaceutiques." />
+    <meta name="keywords" content="pharmacie France, pharmacie garde, pharmacie 24h, pharmacie Paris, pharmacie Lyon, pharmacie Marseille, pharmacie Bordeaux, pharmacie Nice, médicaments, ordonnance, santé" />
+    <meta name="author" content="France Pharmacies" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://francepharmacies.fr" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://francepharmacies.fr" />
+    <meta property="og:title" content="France Pharmacies - Trouvez une pharmacie près de chez vous" />
+    <meta property="og:description" content="Trouvez rapidement une pharmacie près de chez vous en France. Pharmacies de garde, géolocalisation, tendances médicaments." />
+    <meta property="og:image" content="https://francepharmacies.fr/og-image.jpg" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="France Pharmacies" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://francepharmacies.fr" />
+    <meta property="twitter:title" content="France Pharmacies - Trouvez une pharmacie près de chez vous" />
+    <meta property="twitter:description" content="Trouvez rapidement une pharmacie près de chez vous en France. Pharmacies de garde, géolocalisation, tendances médicaments." />
+    <meta property="twitter:image" content="https://francepharmacies.fr/og-image.jpg" />
+    
+    <!-- Structured Data for Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "France Pharmacies",
+      "description": "Application pour trouver des pharmacies en France avec géolocalisation et informations en temps réel",
+      "url": "https://francepharmacies.fr",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "France Pharmacies"
+      },
+      "keywords": "pharmacie, France, garde, médicaments, santé, géolocalisation",
+      "inLanguage": "fr-FR",
+      "isAccessibleForFree": true
+    }
+    </script>
+    
+    <title>France Pharmacies - Trouvez une pharmacie près de chez vous | Pharmacies de garde Paris Lyon Marseille</title>
   </head>
   <body>
+    <!-- Structured Data for Breadcrumbs -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://francepharmacies.fr"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Pharmacies",
+          "item": "https://francepharmacies.fr/pharmacies"
+        }
+      ]
+    }
+    </script>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

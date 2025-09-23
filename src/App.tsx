@@ -14,6 +14,7 @@ import NewsTab from './components/NewsTab';
 import CookieBanner from './components/CookieBanner';
 import CookieSettings from './components/CookieSettings';
 import { useCookieConsent } from './hooks/useCookieConsent';
+import SEOContent from './components/SEOContent';
 
 function App() {
   const { location, loading: geoLoading, error: geoError } = useGeolocation();
@@ -168,9 +169,12 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50 safe-area-top safe-area-bottom">
+      {/* Contenu SEO caché pour les moteurs de recherche */}
+      <SEOContent />
+      
       {/* Header */}
-      <div className={`hidden lg:block bg-white/90 backdrop-blur-xl shadow-xl border-b border-gray-100/50 sticky top-0 z-40 ${(viewMode === 'trends' || viewMode === 'news') ? 'pb-4' : ''}`}>
+      <header className={`hidden lg:block bg-white/90 backdrop-blur-xl shadow-xl border-b border-gray-100/50 sticky top-0 z-40 ${(viewMode === 'trends' || viewMode === 'news') ? 'pb-4' : ''}`}>
         <div className="max-w-7xl mx-auto px-4 py-4 lg:py-6">
           {/* Desktop Header */}
           <div>
@@ -262,10 +266,10 @@ function App() {
             </div>
           )}
         </div>
-      </div>
+      </header>
 
       {/* Mobile Search Bar */}
-      <div className={`lg:hidden bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-100/50 sticky top-0 z-40 pb-safe ${(viewMode === 'trends' || viewMode === 'news') ? 'hidden' : ''}`}>
+      <div className={`lg:hidden bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-100/50 sticky top-0 z-40 safe-area-top ${(viewMode === 'trends' || viewMode === 'news') ? 'hidden' : ''}`}>
         <div className="px-4 py-4">
           <SearchBar
             onLocationSelect={handleLocationSelect}
@@ -305,60 +309,64 @@ function App() {
             </div>
           )}
         </div>
-      </div>
+      </main>
 
       {/* Mobile Bottom Navigation */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200/50 z-50 pb-safe">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200/50 z-50 safe-area-bottom" role="navigation" aria-label="Navigation principale">
         <div className="grid grid-cols-4 px-2 py-2">
           <button
             onClick={() => handleViewModeChange('map')}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all duration-200 ${
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all duration-200 touch-optimized ${
               viewMode === 'map'
                 ? 'bg-emerald-50 text-emerald-600'
                 : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
             }`}
+            aria-label="Vue carte des pharmacies"
           >
             <MapPin className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium">Carte</span>
           </button>
           <button
             onClick={() => handleViewModeChange('list')}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all duration-200 ${
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all duration-200 touch-optimized ${
               viewMode === 'list'
                 ? 'bg-emerald-50 text-emerald-600'
                 : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
             }`}
+            aria-label="Liste des pharmacies"
           >
             <List className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium">Liste</span>
           </button>
           <button
             onClick={() => handleViewModeChange('trends')}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all duration-200 ${
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all duration-200 touch-optimized ${
               viewMode === 'trends'
                 ? 'bg-purple-50 text-purple-600'
                 : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
             }`}
+            aria-label="Tendances des médicaments"
           >
             <TrendingUp className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium">Tendances</span>
           </button>
           <button
             onClick={() => handleViewModeChange('news')}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all duration-200 ${
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all duration-200 touch-optimized ${
               viewMode === 'news'
                 ? 'bg-blue-50 text-blue-600'
                 : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
             }`}
+            aria-label="Actualités pharmaceutiques"
           >
             <Newspaper className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium">Actu</span>
           </button>
         </div>
-      </div>
+      </nav>
 
       {/* Main Content */}
-      <div className={`max-w-7xl mx-auto px-4 py-8 ${(viewMode === 'trends' || viewMode === 'news') ? 'pb-4' : 'pb-28'} lg:pb-8`}>
+      <main className={`max-w-7xl mx-auto px-4 py-8 ${(viewMode === 'trends' || viewMode === 'news') ? 'pb-4' : 'pb-28'} lg:pb-8 tablet-landscape-optimized`} role="main">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters Sidebar - Hidden on mobile */}
           <div className={`hidden lg:block lg:col-span-1 ${(viewMode === 'trends' || viewMode === 'news') ? 'lg:hidden' : ''}`}>

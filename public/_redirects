@@ -1,0 +1,14 @@
+# Redirections pour SPA (Netlify/Vercel)
+/*    /index.html   200
+
+# Redirections SEO pour les villes
+/paris    /?city=paris    200
+/lyon     /?city=lyon     200
+/marseille /?city=marseille 200
+/bordeaux  /?city=bordeaux  200
+/nice      /?city=nice      200
+
+# Redirections pour les pharmacies de garde
+/garde     /?filter=guard   200
+/pharmacies-garde /?filter=guard 200
+/24h       /?filter=24h     200
