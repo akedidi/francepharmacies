@@ -309,6 +309,7 @@ function App() {
             </div>
           )}
         </div>
+      </div>
       </main>
 
       {/* Mobile Bottom Navigation */}
