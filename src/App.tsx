@@ -4,6 +4,7 @@ import { Pharmacy, SearchParams } from './types/pharmacy';
 import { OverpassService } from './services/overpassApi';
 import { NominatimService } from './services/nominatimApi';
 import { useGeolocation } from './hooks/useGeolocation';
+import { useNativeFeatures } from './utils/nativeHelpers';
 import SearchBar from './components/SearchBar';
 import FilterPanel from './components/FilterPanel';
 import PharmacyList from './components/PharmacyList';
@@ -13,10 +14,12 @@ import TrendsTab from './components/TrendsTab';
 import NewsTab from './components/NewsTab';
 import CookieBanner from './components/CookieBanner';
 import CookieSettings from './components/CookieSettings';
+import SEOContent from './components/SEOContent';
 import { useCookieConsent } from './hooks/useCookieConsent';
 
 function App() {
   const { location, loading: geoLoading, error: geoError } = useGeolocation();
+  const { environment, optimizations, isNative, hasCapability } = useNativeFeatures();
   const {
     showBanner,
     preferences,
@@ -168,9 +171,11 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+    <div className={`min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50 ${
+      environment.isTablet ? 'tablet-layout' : ''
+    } ${environment.deviceType === 'phone' ? 'phone-layout' : ''}`}>
       {/* Header */}
-      <div className={`hidden lg:block bg-white/90 backdrop-blur-xl shadow-xl border-b border-gray-100/50 sticky top-0 z-40 ${(viewMode === 'trends' || viewMode === 'news') ? 'pb-4' : ''}`}>
+      <div className={`${environment.isTablet ? 'block' : 'hidden lg:block'} bg-white/90 backdrop-blur-xl shadow-xl border-b border-gray-100/50 sticky top-0 z-40 ${(viewMode === 'trends' || viewMode === 'news') ? 'pb-4' : ''}`}>
         <div className="max-w-7xl mx-auto px-4 py-4 lg:py-6">
           {/* Desktop Header */}
           <div>
@@ -188,49 +193,51 @@ function App() {
               </div>
               
               {/* Desktop View Toggle */}
-              <div className="flex bg-gray-100/80 backdrop-blur-sm rounded-2xl p-1 shadow-inner">
+              <div className={`flex bg-gray-100/80 backdrop-blur-sm rounded-2xl p-1 shadow-inner ${
+                environment.isTablet ? 'scale-110' : ''
+              }`}>
                 <button
                   onClick={() => handleViewModeChange('map')}
-                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                  className={`${environment.isTablet ? 'px-8 py-4 text-lg' : 'px-6 py-3'} rounded-xl font-medium transition-all duration-200 ${
                     viewMode === 'map'
                       ? 'bg-white text-emerald-600 shadow-lg scale-105'
                       : 'text-gray-600 hover:text-gray-800'
                   }`}
                 >
-                  <MapPin className="w-5 h-5 inline mr-2" />
+                  <MapPin className={`${environment.isTablet ? 'w-6 h-6' : 'w-5 h-5'} inline mr-2`} />
                   Carte
                 </button>
                 <button
                   onClick={() => handleViewModeChange('list')}
-                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                  className={`${environment.isTablet ? 'px-8 py-4 text-lg' : 'px-6 py-3'} rounded-xl font-medium transition-all duration-200 ${
                     viewMode === 'list'
                       ? 'bg-white text-emerald-600 shadow-lg scale-105'
                       : 'text-gray-600 hover:text-gray-800'
                   }`}
                 >
-                  <List className="w-5 h-5 inline mr-2" />
+                  <List className={`${environment.isTablet ? 'w-6 h-6' : 'w-5 h-5'} inline mr-2`} />
                   Liste
                 </button>
                 <button
                   onClick={() => handleViewModeChange('trends')}
-                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                  className={`${environment.isTablet ? 'px-8 py-4 text-lg' : 'px-6 py-3'} rounded-xl font-medium transition-all duration-200 ${
                     viewMode === 'trends'
                       ? 'bg-white text-purple-600 shadow-lg scale-105'
                       : 'text-gray-600 hover:text-gray-800'
                   }`}
                 >
-                  <TrendingUp className="w-5 h-5 inline mr-2" />
+                  <TrendingUp className={`${environment.isTablet ? 'w-6 h-6' : 'w-5 h-5'} inline mr-2`} />
                   Tendances
                 </button>
                 <button
                   onClick={() => handleViewModeChange('news')}
-                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                  className={`${environment.isTablet ? 'px-8 py-4 text-lg' : 'px-6 py-3'} rounded-xl font-medium transition-all duration-200 ${
                     viewMode === 'news'
                       ? 'bg-white text-blue-600 shadow-lg scale-105'
                       : 'text-gray-600 hover:text-gray-800'
                   }`}
                 >
-                  <Newspaper className="w-5 h-5 inline mr-2" />
+                  <Newspaper className={`${environment.isTablet ? 'w-6 h-6' : 'w-5 h-5'} inline mr-2`} />
                   Actualités
                 </button>
               </div>
@@ -251,21 +258,25 @@ function App() {
           {geoLoading && (viewMode === 'map' || viewMode === 'list') && (
             <div className="mt-4 flex items-center justify-center text-sm text-gray-600 bg-blue-50/50 backdrop-blur-sm rounded-2xl py-3 px-4">
               <Loader2 className="w-4 h-4 animate-spin mr-2" />
-              <span className="font-medium">Localisation en cours...</span>
+              <span className="font-medium">
+                {environment.isNative ? 'Localisation GPS en cours...' : 'Localisation en cours...'}
+              </span>
             </div>
           )}
           
           {geoError && (viewMode === 'map' || viewMode === 'list') && (
             <div className="mt-4 flex items-center justify-center text-sm text-orange-600 bg-orange-50/50 backdrop-blur-sm rounded-2xl py-3 px-4">
               <AlertCircle className="w-4 h-4 mr-2" />
-              <span className="font-medium">{geoError} - Vous pouvez rechercher par adresse</span>
+              <span className="font-medium">
+                {geoError} - {environment.isNative ? 'Utilisez la recherche par adresse' : 'Vous pouvez rechercher par adresse'}
+              </span>
             </div>
           )}
         </div>
       </div>
 
       {/* Mobile Search Bar */}
-      <div className={`lg:hidden bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-100/50 sticky top-0 z-40 pb-safe ${(viewMode === 'trends' || viewMode === 'news') ? 'hidden' : ''}`}>
+      <div className={`${environment.isTablet ? 'hidden' : 'lg:hidden'} bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-100/50 sticky top-0 z-40 pb-safe ${(viewMode === 'trends' || viewMode === 'news') ? 'hidden' : ''}`}>
         <div className="px-4 py-4">
           <SearchBar
             onLocationSelect={handleLocationSelect}
@@ -294,21 +305,25 @@ function App() {
           {geoLoading && (
             <div className="mt-3 flex items-center justify-center text-sm text-gray-600 bg-blue-50/50 backdrop-blur-sm rounded-2xl py-2 px-4">
               <Loader2 className="w-4 h-4 animate-spin mr-2" />
-              <span className="font-medium">Localisation...</span>
+              <span className="font-medium">
+                {environment.isNative ? 'GPS...' : 'Localisation...'}
+              </span>
             </div>
           )}
           
           {geoError && (
             <div className="mt-3 flex items-center justify-center text-sm text-orange-600 bg-orange-50/50 backdrop-blur-sm rounded-2xl py-2 px-4">
               <AlertCircle className="w-4 h-4 mr-2" />
-              <span className="font-medium">Recherchez par adresse</span>
+              <span className="font-medium">
+                {environment.isNative ? 'Recherche par adresse' : 'Recherchez par adresse'}
+              </span>
             </div>
           )}
         </div>
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200/50 z-50 pb-safe">
+      <div className={`${environment.isTablet ? 'hidden' : 'lg:hidden'} fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200/50 z-50 pb-safe`}>
         <div className="grid grid-cols-4 px-2 py-2">
           <button
             onClick={() => handleViewModeChange('map')}
@@ -358,10 +373,10 @@ function App() {
       </div>
 
       {/* Main Content */}
-      <div className={`max-w-7xl mx-auto px-4 py-8 ${(viewMode === 'trends' || viewMode === 'news') ? 'pb-4' : 'pb-28'} lg:pb-8`}>
+      <div className={`max-w-7xl mx-auto px-4 py-8 ${(viewMode === 'trends' || viewMode === 'news') ? 'pb-4' : environment.isTablet ? 'pb-8' : 'pb-28'} lg:pb-8`}>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters Sidebar - Hidden on mobile */}
-          <div className={`hidden lg:block lg:col-span-1 ${(viewMode === 'trends' || viewMode === 'news') ? 'lg:hidden' : ''}`}>
+          <div className={`${environment.isTablet ? 'block' : 'hidden lg:block'} lg:col-span-1 ${(viewMode === 'trends' || viewMode === 'news') ? 'lg:hidden' : ''}`}>
             <div className="sticky top-32">
               <FilterPanel
                 radius={searchParams.radius}
@@ -405,7 +420,7 @@ function App() {
           {/* Results Area */}
           <div className={`col-span-1 ${(viewMode === 'trends' || viewMode === 'news') ? 'lg:col-span-4' : 'lg:col-span-3'}`}>
             {error && (
-              <div className="mb-6 p-4 bg-red-50/80 backdrop-blur-sm border border-red-200/50 rounded-2xl flex items-center shadow-lg">
+              <div className={`mb-6 ${environment.isTablet ? 'p-6 text-lg' : 'p-4'} bg-red-50/80 backdrop-blur-sm border border-red-200/50 rounded-2xl flex items-center shadow-lg`}>
                 <AlertCircle className="w-5 h-5 text-red-600 mr-3" />
                 <span className="text-red-800 font-medium">{error}</span>
               </div>
@@ -413,7 +428,7 @@ function App() {
 
             <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden border border-gray-100/50">
               {viewMode === 'map' ? (
-                <div className="h-[400px] lg:h-[700px] overflow-hidden">
+                <div className={`${environment.isTablet ? 'h-[600px]' : 'h-[400px] lg:h-[700px]'} overflow-hidden`}>
                   <MapView
                     pharmacies={pharmacies}
                     center={searchParams.location}
@@ -536,17 +551,17 @@ function App() {
       </div>
 
       {/* Cookie Banner */}
-      <CookieBanner
+      {!isNative() && <CookieBanner
         show={showBanner}
         preferences={preferences}
         onAcceptAll={acceptAll}
         onAcceptNecessary={acceptNecessaryOnly}
         onSavePreferences={savePreferences}
         onClose={() => setShowBanner(false)}
-      />
+      />}
 
       {/* Cookie Settings Modal */}
-      <CookieSettings
+      {!isNative() && <CookieSettings
         show={showCookieSettings}
         preferences={preferences}
         onSave={(prefs) => {
@@ -558,7 +573,38 @@ function App() {
           resetConsent();
           setShowCookieSettings(false);
         }}
-      />
+      />}
+      
+      {/* Styles CSS pour tablettes */}
+      <style jsx>{`
+        .tablet-layout {
+          --tablet-padding: 2rem;
+          --tablet-font-scale: 1.1;
+        }
+        
+        .phone-layout {
+          --phone-padding: 1rem;
+          --phone-font-scale: 1;
+        }
+        
+        @media (min-width: 768px) and (max-width: 1024px) {
+          .tablet-layout .text-sm { font-size: 0.95rem; }
+          .tablet-layout .text-base { font-size: 1.1rem; }
+          .tablet-layout .text-lg { font-size: 1.25rem; }
+          .tablet-layout .text-xl { font-size: 1.4rem; }
+          .tablet-layout .text-2xl { font-size: 1.75rem; }
+          .tablet-layout .text-3xl { font-size: 2.1rem; }
+        }
+        
+        @media (min-width: 1024px) {
+          .tablet-layout .text-sm { font-size: 1rem; }
+          .tablet-layout .text-base { font-size: 1.2rem; }
+          .tablet-layout .text-lg { font-size: 1.35rem; }
+          .tablet-layout .text-xl { font-size: 1.5rem; }
+          .tablet-layout .text-2xl { font-size: 1.9rem; }
+          .tablet-layout .text-3xl { font-size: 2.3rem; }
+        }
+      `}</style>
     </div>
   );
 }

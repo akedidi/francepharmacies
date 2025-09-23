@@ -37,14 +37,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           <input
             type="range"
             min="1"
-            max="20"
+            max="10"
             value={radius}
             onChange={(e) => onRadiusChange(parseInt(e.target.value))}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-emerald"
           />
           <div className="flex justify-between text-xs text-gray-500 mt-1">
             <span>1 km</span>
-            <span>20 km</span>
+            <span>10 km</span>
           </div>
         </div>
 
