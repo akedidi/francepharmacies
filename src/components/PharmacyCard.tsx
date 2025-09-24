@@ -121,9 +121,6 @@ const PharmacyCard: React.FC<PharmacyCardProps> = ({ pharmacy, onLocationClick }
           </div>
           <span className={`text-sm font-medium ${getHoursDisplayStyle(pharmacy.openingHours)}`}>
             {formatOpeningHours(pharmacy.openingHours)}
-            {!pharmacy.openingHours && (
-              <span className="ml-2 text-xs text-gray-400">(horaires non disponibles)</span>
-            )}
           </span>
         </div>
       </div>

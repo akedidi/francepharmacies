@@ -27,6 +27,18 @@ const pharmacyIcon = new Icon({
   popupAnchor: [0, -14],
 });
 
+const pharmacyIconGray = new Icon({
+  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="14" fill="#9ca3af" stroke="#ffffff" stroke-width="2"/>
+      <path d="M16 8v16M8 16h16" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  `),
+  iconSize: [28, 28],
+  iconAnchor: [14, 14],
+  popupAnchor: [0, -14],
+});
+
 const guardPharmacyIcon = new Icon({
   iconUrl: 'data:image/svg+xml;base64,' + btoa(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
@@ -61,6 +73,7 @@ interface MapViewProps {
   onPharmacyClick?: (pharmacy: Pharmacy) => void;
   onMapMove?: (lat: number, lon: number) => void;
   isSearchingInZone?: boolean;
+  filterByTime?: boolean;
 }
 
 // Component to handle map updates
@@ -157,7 +170,8 @@ const MapView: React.FC<MapViewProps> = ({
   userLocation,
   onPharmacyClick,
   onMapMove,
-  isSearchingInZone = false
+  isSearchingInZone = false,
+  filterByTime = false
 }) => {
   const [pharmacyAddresses, setPharmacyAddresses] = React.useState<Record<string, string>>({});
   const [loadingAddresses, setLoadingAddresses] = React.useState<Record<string, boolean>>({});
@@ -225,6 +239,21 @@ const MapView: React.FC<MapViewProps> = ({
     return frenchHours;
   };
 
+  const getPharmacyIcon = (pharmacy: Pharmacy) => {
+    // Si c'est une pharmacie de garde ou 24h/24, toujours utiliser l'icône rouge
+    if (pharmacy.isGuard || pharmacy.isOpen24h) {
+      return guardPharmacyIcon;
+    }
+    
+    // Si on filtre par horaires et qu'on n'a pas d'horaires, utiliser l'icône grise
+    if (filterByTime && !pharmacy.openingHours) {
+      return pharmacyIconGray;
+    }
+    
+    // Sinon, utiliser l'icône verte normale
+    return pharmacyIcon;
+  };
+
   return (
     <div className="h-full w-full rounded-3xl overflow-hidden">
       {/* Bouton de recherche dans cette zone */}
@@ -284,7 +313,7 @@ const MapView: React.FC<MapViewProps> = ({
           <Marker
             key={pharmacy.id}
             position={[pharmacy.lat, pharmacy.lon]}
-            icon={pharmacy.isGuard || pharmacy.isOpen24h ? guardPharmacyIcon : pharmacyIcon}
+            icon={getPharmacyIcon(pharmacy)}
           >
             <Popup 
               maxWidth={300} 
@@ -353,9 +382,6 @@ const MapView: React.FC<MapViewProps> = ({
                     pharmacy.openingHours ? 'text-gray-600' : 'text-gray-400'
                   }`}>
                     {formatOpeningHours(pharmacy.openingHours)}
-                    {!pharmacy.openingHours && (
-                      <span className="text-xs text-gray-400 ml-1">(non disponibles)</span>
-                    )}
                   </span>
                 </div>
 

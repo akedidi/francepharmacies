@@ -427,6 +427,7 @@ function App() {
                     }}
                     onMapMove={handleMapMove}
                     isSearchingInZone={isSearchingInZone}
+                    filterByTime={searchParams.filterByTime}
                   />
                 </div>
               ) : viewMode === 'list' ? (
