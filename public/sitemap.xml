@@ -4,44 +4,10 @@
   
   <!-- Page d'accueil -->
   <url>
-    <loc>https://francepharmacies.fr/</loc>
+    <loc>https://francepharmacies.org/</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <mobile:mobile/>
-  </url>
-  
-  <!-- Pages principales -->
-  <url>
-    <loc>https://francepharmacies.fr/pharmacies</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>hourly</changefreq>
-    <priority>0.9</priority>
-    <mobile:mobile/>
-  </url>
-  
-  <url>
-    <loc>https://francepharmacies.fr/tendances</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-    <mobile:mobile/>
-  </url>
-  
-  <url>
-    <loc>https://francepharmacies.fr/actualites</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-    <mobile:mobile/>
-  </url>
-  
-  <!-- Pharmacies de garde -->
-  <url>
-    <loc>https://francepharmacies.fr/pharmacies-garde</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>hourly</changefreq>
-    <priority>0.9</priority>
     <mobile:mobile/>
   </url>
   
