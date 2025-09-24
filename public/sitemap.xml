@@ -36,66 +36,9 @@
     <mobile:mobile/>
   </url>
   
-  <!-- Pages par ville -->
-  <url>
-    <loc>https://francepharmacies.fr/pharmacies/paris</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <mobile:mobile/>
-  </url>
-  
-  <url>
-    <loc>https://francepharmacies.fr/pharmacies/lyon</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <mobile:mobile/>
-  </url>
-  
-  <url>
-    <loc>https://francepharmacies.fr/pharmacies/marseille</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <mobile:mobile/>
-  </url>
-  
-  <url>
-    <loc>https://francepharmacies.fr/pharmacies/bordeaux</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <mobile:mobile/>
-  </url>
-  
-  <url>
-    <loc>https://francepharmacies.fr/pharmacies/nice</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <mobile:mobile/>
-  </url>
-  
   <!-- Pharmacies de garde -->
   <url>
     <loc>https://francepharmacies.fr/pharmacies-garde</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>hourly</changefreq>
-    <priority>0.9</priority>
-    <mobile:mobile/>
-  </url>
-  
-  <url>
-    <loc>https://francepharmacies.fr/pharmacies-garde/paris</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>hourly</changefreq>
-    <priority>0.9</priority>
-    <mobile:mobile/>
-  </url>
-  
-  <url>
-    <loc>https://francepharmacies.fr/pharmacies-garde/lyon</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>hourly</changefreq>
     <priority>0.9</priority>

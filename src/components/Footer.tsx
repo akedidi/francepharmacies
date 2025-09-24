@@ -13,11 +13,11 @@ const Footer: React.FC<FooterProps> = ({ onCookieSettings }) => {
           <p className="text-gray-400 text-sm">© 2025 France Pharmacies</p>
           <div className="flex items-center gap-4">
             <a 
-              href="mailto:contact@francepharmacies.fr" 
+              href="mailto:contact@francepharmacies.org" 
               className="text-gray-400 hover:text-white text-sm lg:text-sm flex items-center transition-colors"
             >
               <Mail className="w-4 h-4 mr-2" />
-              contact@francepharmacies.fr
+              contact@francepharmacies.org
             </a>
             {onCookieSettings && (
               <button
