@@ -4,6 +4,43 @@ const OVERPASS_API_URL = 'https://overpass-api.de/api/interpreter';
 const GEOPF_API_URL = 'https://data.geopf.fr/geocodage';
 
 export class OverpassService {
+  private static async fetchWithRetry(
+    url: string,
+    options: RequestInit,
+    maxRetries: number = 3,
+    baseDelay: number = 1000
+  ): Promise<Response> {
+    let lastError: Error;
+    
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      try {
+        const response = await fetch(url, options);
+        
+        // If we get a 504 Gateway Timeout, retry
+        if (response.status === 504 && attempt < maxRetries) {
+          const delay = baseDelay * Math.pow(2, attempt); // Exponential backoff
+          console.warn(`Overpass API timeout (attempt ${attempt + 1}/${maxRetries + 1}), retrying in ${delay}ms...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          continue;
+        }
+        
+        return response;
+      } catch (error) {
+        lastError = error as Error;
+        
+        // If it's a network error and we have retries left, try again
+        if (attempt < maxRetries) {
+          const delay = baseDelay * Math.pow(2, attempt);
+          console.warn(`Network error (attempt ${attempt + 1}/${maxRetries + 1}), retrying in ${delay}ms...`, error);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          continue;
+        }
+      }
+    }
+    
+    throw lastError!;
+  }
+
   static async searchPharmacies(
     lat: number,
     lon: number,
@@ -35,7 +72,7 @@ export class OverpassService {
     }
 
     try {
-      const response = await fetch(OVERPASS_API_URL, {
+      const response = await this.fetchWithRetry(OVERPASS_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
