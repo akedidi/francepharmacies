@@ -6,18 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:native": "vite build && npx cap sync",
+    "build:native": "vite build && npx @capacitor/cli sync",
     "lint": "eslint .",
     "preview": "vite preview",
-    "cap:add:ios": "npx cap add ios",
-    "cap:add:android": "npx cap add android",
-    "cap:sync": "npx cap sync",
-    "cap:open:ios": "npx cap open ios",
-    "cap:open:android": "npx cap open android",
-    "cap:run:ios": "npx cap run ios",
-    "cap:run:android": "npx cap run android",
-    "cap:run:ios:device": "npx cap run ios --target device",
-    "cap:run:android:device": "npx cap run android --target device"
+    "cap:add:ios": "npx @capacitor/cli add ios",
+    "cap:add:android": "npx @capacitor/cli add android",
+    "cap:sync": "npx @capacitor/cli sync",
+    "cap:open:ios": "npx @capacitor/cli open ios",
+    "cap:open:android": "npx @capacitor/cli open android",
+    "cap:run:ios": "npx @capacitor/cli run ios",
+    "cap:run:android": "npx @capacitor/cli run android",
+    "cap:run:ios:device": "npx @capacitor/cli run ios --target device",
+    "cap:run:android:device": "npx @capacitor/cli run android --target device"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
