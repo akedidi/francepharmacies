@@ -25,17 +25,24 @@ export const useNativeGeolocation = () => {
     try {
       // Vérifier si on est sur une plateforme native
       if (Capacitor.isNativePlatform()) {
-        // Demander les permissions sur mobile
-        const permissions = await Geolocation.requestPermissions();
+        // Demander explicitement les permissions sur mobile
+        console.log('Demande de permissions de géolocalisation...');
+        const permissions = await Geolocation.requestPermissions({
+          permissions: ['location']
+        });
         
-        if (permissions.location === 'granted') {
+        console.log('Permissions reçues:', permissions);
+        
+        if (permissions.location === 'granted' || permissions.location === 'prompt') {
           // Utiliser l'API native Capacitor
+          console.log('Tentative de récupération de la position...');
           const position = await Geolocation.getCurrentPosition({
             enableHighAccuracy: true,
-            timeout: 15000,
+            timeout: 30000,
             maximumAge: 300000 // 5 minutes
           });
 
+          console.log('Position obtenue:', position);
           setState({
             location: {
               lat: position.coords.latitude,
@@ -45,10 +52,11 @@ export const useNativeGeolocation = () => {
             error: null,
           });
         } else {
+          console.log('Permissions refusées:', permissions.location);
           setState({
             location: null,
             loading: false,
-            error: 'Autorisation de géolocalisation refusée',
+            error: 'Autorisation de géolocalisation refusée. Veuillez l\'activer dans les réglages.',
           });
         }
       } else {

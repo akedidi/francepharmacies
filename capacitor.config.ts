@@ -10,7 +10,7 @@ const config: CapacitorConfig = {
   plugins: {
     Geolocation: {
       permissions: {
-        location: "always"
+        location: "whenInUse"
       }
     },
     SplashScreen: {

@@ -46,9 +46,13 @@
 	
 	<!-- Permissions de géolocalisation -->
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>France Pharmacies utilise votre position pour trouver les pharmacies les plus proches de vous.</string>
+	<string>Cette application a besoin d'accéder à votre position pour trouver les pharmacies les plus proches de vous.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>France Pharmacies utilise votre position pour trouver les pharmacies les plus proches de vous.</string>
+	<string>Cette application a besoin d'accéder à votre position pour trouver les pharmacies les plus proches de vous.</string>
+	
+	<!-- Ajout de la permission Always (optionnel mais recommandé) -->
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Cette application a besoin d'accéder à votre position pour trouver les pharmacies les plus proches de vous.</string>
 	
 	<!-- Configuration réseau -->
 	<key>NSAppTransportSecurity</key>
