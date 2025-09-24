@@ -54,7 +54,13 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             <Clock className="w-5 h-5 text-blue-600 mr-3" />
             <div>
               <p className="font-medium text-gray-800">Ouvert maintenant</p>
-              <p className="text-sm text-gray-600">Afficher seulement les pharmacies ouvertes</p>
+              <p className="text-sm text-gray-600">
+                Filtrer par horaires d'ouverture
+                <br />
+                <span className="text-xs text-gray-500">
+                  La nuit (20h-8h), masque les pharmacies sans horaires
+                </span>
+              </p>
             </div>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">

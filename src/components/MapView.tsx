@@ -349,7 +349,14 @@ const MapView: React.FC<MapViewProps> = ({
                 {/* Horaires */}
                 <div className="flex items-center text-gray-600">
                   <Clock className="w-4 h-4 mr-2 text-gray-500" />
-                  <span className="text-sm">{formatOpeningHours(pharmacy.openingHours)}</span>
+                  <span className={`text-sm ${
+                    pharmacy.openingHours ? 'text-gray-600' : 'text-gray-400'
+                  }`}>
+                    {formatOpeningHours(pharmacy.openingHours)}
+                    {!pharmacy.openingHours && (
+                      <span className="text-xs text-gray-400 ml-1">(non disponibles)</span>
+                    )}
+                  </span>
                 </div>
 
                 {/* Badges de statut */}

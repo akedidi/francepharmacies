@@ -86,23 +86,11 @@ function App() {
         searchParams.location.lat,
         searchParams.location.lon,
         searchParams.radius,
-        searchParams.showOnlyGuard
+        searchParams.showOnlyGuard,
+        searchParams.filterByTime
       );
 
-      // Filter by opening hours if needed
-      let filteredResults = results;
-      if (searchParams.filterByTime) {
-        // This is a simplified implementation
-        // In a real app, you'd need more sophisticated opening hours parsing
-        filteredResults = results.filter(pharmacy => 
-          pharmacy.isOpen24h || 
-          !pharmacy.openingHours || 
-          pharmacy.openingHours.includes('Mo-Su') ||
-          pharmacy.openingHours === '24/7'
-        );
-      }
-
-      setPharmacies(filteredResults);
+      setPharmacies(results);
     } catch (err) {
       setError('Erreur lors de la recherche des pharmacies. Veuillez réessayer.');
       console.error('Search error:', err);

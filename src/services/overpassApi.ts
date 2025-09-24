@@ -45,7 +45,8 @@ export class OverpassService {
     lat: number,
     lon: number,
     radius: number,
-    showOnlyGuard: boolean = false
+    showOnlyGuard: boolean = false,
+    filterByTime: boolean = false
   ): Promise<Pharmacy[]> {
     const radiusInMeters = radius * 1000;
     
@@ -111,8 +112,14 @@ export class OverpassService {
         });
       }
       
+      // Filtrer par horaires si demandé
+      let filteredPharmacies = pharmacies;
+      if (filterByTime) {
+        filteredPharmacies = this.filterByOpeningHours(pharmacies);
+      }
+      
       // Trier par distance et limiter les résultats
-      const sortedPharmacies = pharmacies
+      const sortedPharmacies = filteredPharmacies
         .sort((a, b) => (a.distance || 0) - (b.distance || 0))
         .slice(0, 100);
       
@@ -127,6 +134,50 @@ export class OverpassService {
     }
   }
 
+  private static filterByOpeningHours(pharmacies: Pharmacy[]): Pharmacy[] {
+    const now = new Date();
+    const currentHour = now.getHours();
+    const isNightTime = currentHour >= 20 || currentHour < 8;
+    
+    return pharmacies.filter(pharmacy => {
+      // Toujours inclure les pharmacies de garde et 24h/24
+      if (pharmacy.isGuard || pharmacy.isOpen24h) {
+        return true;
+      }
+      
+      // Si c'est la nuit (20h-8h) et qu'on n'a pas d'horaires, exclure
+      if (isNightTime && !pharmacy.openingHours) {
+        return false;
+      }
+      
+      // Si on a des horaires, essayer de les analyser
+      if (pharmacy.openingHours) {
+        return this.isLikelyOpen(pharmacy.openingHours, now);
+      }
+      
+      // Si on n'a pas d'horaires et que ce n'est pas la nuit, inclure
+      return !isNightTime;
+    });
+  }
+  
+  private static isLikelyOpen(openingHours: string, now: Date): boolean {
+    // Analyse simplifiée des horaires
+    const hours = openingHours.toLowerCase();
+    
+    // 24/7 ou toujours ouvert
+    if (hours.includes('24/7') || hours.includes('24h')) {
+      return true;
+    }
+    
+    // Si contient "mo-su" ou "lun-dim", probablement ouvert tous les jours
+    if (hours.includes('mo-su') || hours.includes('lun-dim')) {
+      return true;
+    }
+    
+    // Pour une analyse plus poussée, on pourrait parser les horaires
+    // mais c'est complexe avec les différents formats
+    return true; // Par défaut, on considère comme ouvert
+  }
   private static async improveAddressesInBackground(pharmacies: Pharmacy[]): Promise<void> {
     // Améliorer les adresses incomplètes en arrière-plan
     for (const pharmacy of pharmacies) {

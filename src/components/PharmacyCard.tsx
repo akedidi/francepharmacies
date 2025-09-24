@@ -35,6 +35,13 @@ const PharmacyCard: React.FC<PharmacyCardProps> = ({ pharmacy, onLocationClick }
     return frenchHours;
   };
 
+  const getHoursDisplayStyle = (hours?: string) => {
+    if (!hours) {
+      return 'text-gray-500 bg-gray-100';
+    }
+    return 'text-gray-700';
+  };
+
   const handleDirections = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${pharmacy.lat},${pharmacy.lon}`;
     window.open(url, '_blank');
@@ -105,10 +112,19 @@ const PharmacyCard: React.FC<PharmacyCardProps> = ({ pharmacy, onLocationClick }
         )}
 
         <div className="flex items-center text-gray-700">
-          <div className="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center mr-3">
-            <Clock className="w-4 h-4 text-green-600" />
+          <div className={`w-8 h-8 rounded-lg flex items-center justify-center mr-3 ${
+            pharmacy.openingHours ? 'bg-green-50' : 'bg-gray-100'
+          }`}>
+            <Clock className={`w-4 h-4 ${
+              pharmacy.openingHours ? 'text-green-600' : 'text-gray-400'
+            }`} />
           </div>
-          <span className="text-sm font-medium">{formatOpeningHours(pharmacy.openingHours)}</span>
+          <span className={`text-sm font-medium ${getHoursDisplayStyle(pharmacy.openingHours)}`}>
+            {formatOpeningHours(pharmacy.openingHours)}
+            {!pharmacy.openingHours && (
+              <span className="ml-2 text-xs text-gray-400">(horaires non disponibles)</span>
+            )}
+          </span>
         </div>
       </div>
 
